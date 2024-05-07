@@ -73,13 +73,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
                                         @foreach ($pos as $key => $posyandu)
+                                        <tr>
                                             <td>{{$key+1}}</td>
                                             <td>{{$posyandu->nama}}</td>
                                             <td>{{$posyandu->alamat}}</td>
-                                        @endforeach
-                                    </tr>
+                                        </tr>
+                                        @endforeacH
                                 </tbody>
                             </table>
                         </div>

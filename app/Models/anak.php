@@ -11,7 +11,7 @@ class anak extends Model
     protected $table = 'anaks';
 
     protected $fillable = [
-        'nama','gender','alamat','umur','namaortu','kode_posyandu','kode_ortu'
+        'nama','gender','alamat','tanggal_lahir','namaortu','kode_posyandu','kode_ortu'
     ] ;
     public function posyandu()
     {

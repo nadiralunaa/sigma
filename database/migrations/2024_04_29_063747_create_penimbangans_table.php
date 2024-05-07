@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status_bb');
             $table->string('status_tb');
             $table->string('status_gizi');
-            $table->time('tanggal_timbang');
+            $table->date('tanggal_timbang');
             $table->timestamps();
         });
     }

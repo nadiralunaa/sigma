@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->char('gender',1);
             $table->string('alamat');
-            $table->integer('umur');
+            $table->date('tanggal_lahir');
             $table->string('namaortu');
             $table->timestamps();
         });

@@ -130,7 +130,7 @@ class PenimbanganController extends Controller
         $sensorData->tinggi_sensor = $validatedData['tinggisensor'];
         $sensorData->umur = $request['umur'];
         // Menggunakan Carbon untuk format tanggal
-        $tanggalTimbang = date('Y-m-d H:i:s', strtotime($validatedData['tanggal']));
+        $tanggalTimbang = $validatedData['tanggal'];
         $sensorData->tanggal_timbang = $tanggalTimbang;
         // pake rumus
         $sensorData->status_bb = "baik";
