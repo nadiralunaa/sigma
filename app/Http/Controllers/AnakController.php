@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\anak;
 use App\Models\posyandu;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AnaksImport;
+use Illuminate\Support\Facades\Auth;
 
 class AnakController extends Controller
 {
@@ -47,8 +50,16 @@ class AnakController extends Controller
     public function edit(anak $anak)
     {
         // dd($anak);
-        $posyandu = posyandu::all();
-        return view('user_admin.anak.edit', compact('anak','posyandu'));
+        $user = Auth::user();
+        if ($user->kode_roles == 2) {
+            $kode_pos = $user->kode_posyandu;
+            $posyandu = posyandu::where('id','=',$kode_pos)->get()->first();
+            //dd($posyandu);
+            return view('user_posyandu.anak.edit',compact('user','anak','posyandu'));
+        } else {
+            $posyandu = posyandu::all();
+            return view('user_admin.anak.edit', compact('anak', 'posyandu'));
+        }
     }
 
     /**
@@ -57,7 +68,7 @@ class AnakController extends Controller
     public function update(Request $request, anak $anak)
     {
         $anak->update($request->all());
-        return redirect()->back()->with('success','Data Berhasil Diubah');
+        return redirect()->back()->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -66,6 +77,17 @@ class AnakController extends Controller
     public function destroy(anak $anak)
     {
         $anak->delete();
-        return redirect()->back()->with('success','Data Berhasil Dihapus');
+        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx'
+        ]);
+
+        Excel::import(new AnaksImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Anak data imported successfully.');
     }
 }

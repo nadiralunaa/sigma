@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -11,6 +12,7 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
+
     public function login(Request $request)
     {
         try {
@@ -28,19 +30,18 @@ class LoginController extends Controller
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 // Authentication successful, determine user role
                 $user = Auth::user();
-                // dd($user);
-                $routeName = '';
+                Log::info('User authenticated successfully', ['user' => $user]);
 
                 if ($user->kode_roles == 1) {
-                    $routeName = 'admin.dashboard';
+                    return redirect()->route('admin.dashboard');
                 } elseif ($user->kode_roles == 2) {
-                    $routeName = 'posyandu.dashboard';
+                    Log::info('Redirecting to posyandu dashboard');
+                    return redirect()->route('posyandu.dashboard');
                 } elseif ($user->kode_roles == 3) {
-                    $routeName = 'orangtua.dashboard';
+                    return redirect()->route('orangtua.dashboard');
                 } else {
-                    $routeName = '/'; // Ganti dengan nama rute default jika diperlukan
+                    return redirect('/'); // Ganti dengan nama rute default jika diperlukan
                 }
-                return redirect()->route($routeName);
             }
             // Redirect back with error if authentication fails
             return back()->withErrors(['error' => 'Email atau password salah.']);

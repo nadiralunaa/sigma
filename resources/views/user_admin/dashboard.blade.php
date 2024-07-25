@@ -99,7 +99,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
-                                        <th>Umur</th>
+                                        <th>Tanggal Lahir</th>
                                         <th>Alamat</th>
                                         <th>Nama Orang Tua</th>
                                         <th>Posysandu</th>
@@ -116,7 +116,7 @@
                                             @else
                                                 <td>Laki - Laki</td>
                                             @endif
-                                            <td>{{ $anak->umur }}</td>
+                                            <td>{{ $anak->tanggal_lahir }}</td>
                                             <td>{{ $anak->alamat }}</td>
                                             <td>{{ $anak->namaortu }}</td>
                                             <td>{{ $anak->posyandu->nama }}</td>

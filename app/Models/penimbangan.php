@@ -12,7 +12,7 @@ class penimbangan extends Model
     protected $table = 'penimbangans';
 
     protected $fillable = [
-        'umur','tinggi_asli','berat_asli','tinggi_sensor','berat_sensor','status_bb','status_tb','status_gizi','kode_anak'
+        'umur','tinggi_asli','berat_asli','tinggi_sensor','berat_sensor','status_bb','status_tb','status_gizi','kode_anak','tanggal_timbang'
     ] ;
 
     public function anak()

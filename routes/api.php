@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JsonDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenimbanganController;
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Endpoint untuk menyimpan data sensor dari ESP32
 Route::post('/store-data', [PenimbanganController::class, 'store']);
+
+Route::get('/maps',[JsonDataController::class,'getDataMap']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\posyandu;
+use App\Models\anak;
 use Illuminate\Http\Request;
 
 class PosyanduController extends Controller
@@ -64,5 +65,13 @@ class PosyanduController extends Controller
     {
         $posyandu->delete();
         return redirect()->back()->with('success','Data Berhasil Dihapus');
+    }
+
+    public function guest($id){
+        $posyandu = Posyandu::findOrFail($id);
+        $kode_pos = $id;
+        $jmlAnak = anak::where('kode_posyandu','=',$kode_pos)->count();
+        $anak = anak::where('kode_posyandu','=',$kode_pos)->get();
+        return view('user_guest.posyandu', compact('posyandu'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\anak;
 use App\Models\posyandu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -18,10 +19,23 @@ class DashboardController extends Controller
     }
 
     public function posyandu(){
-        return view('user_posyandu.dashboard');
+        $user = Auth::user();
+        $kode_pos = $user->kode_posyandu;
+        $jmlAnak = anak::where('kode_posyandu','=',$kode_pos)->count();
+        $anak = anak::where('kode_posyandu','=',$kode_pos)->get();
+        $pos = posyandu::where('id','=',$kode_pos)->get()->first();
+        //dd($anak);
+        return view('user_posyandu.dashboard', compact('user','jmlAnak','anak','pos'));
     }
 
     public function ortu(){
         return view('user_ortu.dashboard');
+    }
+
+    public function guest(){
+        $jmlPos = posyandu::count();
+        $jmlAnak = anak::count();
+        $pos = posyandu::all();
+        return view('user_guest.dashboard',compact('jmlPos','jmlAnak','pos'));
     }
 }

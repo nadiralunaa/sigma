@@ -25,7 +25,7 @@ class User extends Authenticatable
         'alamat_users',
         'no_telp',
         'kode_roles',
-        'kode_posyandus',
+        'kode_posyandu',
     ];
 
     /**
